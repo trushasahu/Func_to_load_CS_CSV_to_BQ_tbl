@@ -1,0 +1,12 @@
+provider "google" {
+
+  credentials = file("secret-cipher-303308-2c2a8bf0fdcc.json")
+
+  project = "secret-cipher-303308"
+  region  = "europe-west2"
+  zone    = "europe-west2-c"
+}
+
+resource "google_compute_network" "vpc_network" {
+  name = "terraform-network"
+}

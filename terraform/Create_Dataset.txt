@@ -1,0 +1,13 @@
+provider "google" {
+
+  credentials = file("third-campus-303308-4c7ea19d90bd.json")
+
+  project = "third-campus-303308"
+  region  = "europe-west2"
+  zone    = "europe-west2-c"
+}
+
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id                  = "ds_bigmart"
+  location                    = "europe-west2"
+}

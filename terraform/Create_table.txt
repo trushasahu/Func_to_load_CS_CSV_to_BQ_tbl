@@ -1,0 +1,71 @@
+provider "google" {
+
+  credentials = file("third-campus-303308-4c7ea19d90bd.json")
+
+  project = "third-campus-303308"
+  region  = "europe-west2"
+  zone    = "europe-west2-c"
+}
+
+resource "google_bigquery_table" "bigmart_data" {
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  table_id   = "bigmart"
+  
+  labels = {
+    env = "default"
+  }
+  
+  schema = <<EOF
+[
+  {
+    "name": "Item_Identifier",
+    "type": "STRING"
+  },
+  {
+    "name": "Item_Weight",
+    "type": "FLOAT"
+  },
+  {
+    "name": "Item_Fat_Content",
+    "type": "STRING"
+  },
+  {
+    "name": "Item_Visibility",
+    "type": "FLOAT"
+  },
+  {
+    "name": "Item_Type",
+    "type": "STRING"
+  },
+  {
+    "name": "Item_MRP",
+    "type": "FLOAT"
+  },
+  {
+    "name": "Outlet_Identifier",
+    "type": "STRING"
+  },
+  {
+    "name": "Outlet_Establishment_Year",
+    "type": "INTEGER"
+  },
+  {
+    "name": "Outlet_Size",
+    "type": "STRING"
+  },
+  {
+    "name": "Outlet_Location_Type",
+    "type": "STRING"
+  },
+  {
+    "name": "Outlet_Type",
+    "type": "STRING"
+  },
+  {
+    "name": "Item_Outlet_Sales",
+    "type": "FLOAT"
+  }
+  
+]
+EOF
+}

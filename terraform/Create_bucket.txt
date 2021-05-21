@@ -1,0 +1,15 @@
+provider "google" {
+
+  credentials = file("third-campus-303308-4c7ea19d90bd.json")
+
+  project = "third-campus-303308"
+  region  = "europe-west2"
+  zone    = "europe-west2-c"
+}
+
+resource "google_storage_bucket" "bucket" {
+  name          = "third-campus-303308-bigmart"
+  location      = "europe-west2"
+
+  uniform_bucket_level_access = true
+}
