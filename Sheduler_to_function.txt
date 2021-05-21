@@ -1,0 +1,5 @@
+1)create one service account to invoke cloud function from scheduler by adding "cloud function invocker" role.
+2)create scheduler to invoke cloud function by with 
+	target "HTTP" ,  URL is nothing but the url of function, http method as "GET"
+	auth header as "Add OIDC token"   and provide the "cloud function invocker" service account id as created earlier.
+	

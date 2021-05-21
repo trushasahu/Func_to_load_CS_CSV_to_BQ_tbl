@@ -1,0 +1,5 @@
+1)create one service account/add role to existing service account to invoke/connect cloud sql from function by adding "cloud SQL client" role.
+2)create cloud function by adding python script to invoke sql and execute the function.
+	target type as 'HTTP'
+	authentication : require
+	advanced->service account-> provide/select "cloud SQL client" role service account

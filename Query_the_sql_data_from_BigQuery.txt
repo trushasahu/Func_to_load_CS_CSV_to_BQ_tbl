@@ -1,0 +1,12 @@
+- Enable the BigQuery connection API service
+- Configure the Cloud SQL instance -> select the public IP to connect
+- Set up the connection resource in BigQuery-> 
+	Bigquery dashboard->Click on '+Add Data'->click on 'External data source'-> select 'cloud sql-postgressql' as connecttion type
+		->provide connection id 'postgres_mart_db' to use during quering sql from bigquery.
+		->connection location same as sql db location
+		->Cloud SQL instance ID as 'Connection name' of cloud sql instance
+		->provide the Database name 'mart'->username->pwd
+- Grant permission to connection users -> required to give access to particular user.
+- Example federated queries
+    SELECT * FROM EXTERNAL_QUERY('secret-cipher-303308.europe-west2.postgres_mart_db', '''select count(1) from data_load.bigmart_data''');
+

@@ -1,0 +1,3 @@
+
+gcloud sql import csv postgresql-2 gs://secret-cipher-303308-bucket-2/data_files/bigmart_data_wo_header.csv \
+                            --database=mart --table=data_load.bigmart_data		

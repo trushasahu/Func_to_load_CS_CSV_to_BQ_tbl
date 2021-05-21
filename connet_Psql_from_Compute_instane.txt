@@ -1,0 +1,48 @@
+In the Cloud Console, go to the VM instances page.
+Click Create.
+Set Name to postgres-tutorial.
+In the Public images tab, choose Ubuntu for Operating system.
+In the Version dropdown list, choose Ubuntu 20.04 LTS.
+In the Boot disk type section, select Standard persistent disk.
+Click Select.
+Under the Firewall section, expand Management, security, disks, networking, sole tenancy, select the Networking tab, and enter postgres-tutorial for the Network tags field.
+Click Create to create the instance	
+
+set one service-account whose have cloud-sql-client role . so the VM instance can connet to cloud sql instance.
+
+1)Update the packages. In the SSH terminal, enter the following command:
+
+sudo apt update
+
+2)Install PostgreSQL:
+
+
+sudo apt-get install postgresql-client
+
+
+install the cloud SQL proxy in cloud shell
+
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+
+change the mode to execute.
+
+./cloud_sql_proxy -instances=secret-cipher-303308:europe-west2:postgresql-2=tcp:5432 &
+
+----connect to the db----
+psql "host=35.200.147.115 sslmode=disable dbname=mart user=postgres"
+
+
+
+----crontab for shell script present in compute engine instance---
+* * * * * /home/sahu_trusha1/connect_postgresql_shell.ksh  >>/home/sahu_trusha1/connect_postgresql_shell.log		
+
+
+------execute script stored at storage----
+##gs://secret-cipher-303308-bucket-1/data_files/connect_postgresql_shell.ksh
+
+gsutil cat gs://secret-cipher-303308-bucket-2/data_files/connect_postgresql_shell.ksh | sh
+/snap/bin/gsutil cat gs://secret-cipher-303308-bucket-2/data_files/connect_postgresql_shell.ksh | sh
+
+----crontab for shell script present at cloud storage---(Note:execute the gsutil command with full path as "/snap/bin/gsutil" in the crontab) 
+* * * * * /snap/bin/gsutil cat gs://secret-cipher-303308-bucket-2/data_files/connect_postgresql_shell.sh | sh >> /home/sahu_trusha1/connect_postgresql_shell_cs.log 2>&1
+

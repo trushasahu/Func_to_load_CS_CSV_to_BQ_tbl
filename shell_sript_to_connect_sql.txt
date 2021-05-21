@@ -1,0 +1,48 @@
+install the cloud SQL proxy in cloud shell
+
+wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+
+change the mode to execute.
+
+./cloud_sql_proxy -instances=secret-cipher-303308:europe-west2:postgresql-2=tcp:5432 &
+
+----connect to the db----
+psql "host=35.200.147.115 sslmode=disable dbname=mart user=postgres"
+
+-----Sript----------------
+
+#!/bin/sh
+DATABASE=mart
+USERNAME=postgres
+HOSTNAME=127.0.0.1
+export PGPASSWORD=newpass1
+
+psql -h $HOSTNAME -U $USERNAME $DATABASE << EOF
+select * from data_load.bigmart_data where item_identifier ='FDA15';
+EOF
+
+
+--------------
+
+#!/bin/sh
+DATABASE=mart
+USERNAME=postgres
+HOSTNAME=127.0.0.1
+export PGPASSWORD=newpass1
+
+psql -h $HOSTNAME -U $USERNAME $DATABASE << EOF
+insert into data_load.item_details (item_identifier,item_weight,item_fat_content)
+	select item_identifier,item_weight,item_fat_content 
+	from data_load.bigmart_data;
+EOF
+
+
+----crontab---
+* * * * * /home/sahu_trusha1/connect_postgresql_shell.ksh  >>/home/sahu_trusha1/connect_postgresql_shell.log		
+
+
+------from storage----
+gs://secret-cipher-303308-bucket-1/data_files/connect_postgresql_shell.ksh
+
+gsutil cat gs://secret-cipher-303308-bucket-1/data_files/connect_postgresql_shell.ksh | sh	
+
